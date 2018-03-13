@@ -30,8 +30,7 @@ export class CRApi {
 
     // Initialize default Api Options, but always prefer the passed options
     const defaultOptions: IApiOptions = {
-      timeoutMS: 6000,
-      validateTags: true
+      timeoutMS: 6000
     };
     const completeOptions: IApiOptions = {...defaultOptions, ...options};
     this.options = completeOptions;
@@ -188,11 +187,7 @@ export class CRApi {
  */
 export interface IApiOptions {
   /**
-   * Timeout for waiting for a response until it fails. Defaults to 6000 milliseconds.
+   * Timeout for awaiting a response until it fails. Defaults to 6000 milliseconds.
    */
   timeoutMS?: number;
-  /**
-   * Validate player tags before requesting resource from the API. Throws exceptions on invalid tags. Defaults to true.
-   */
-  validateTags?: boolean;
 }
