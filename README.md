@@ -57,10 +57,10 @@ const apiToken = 'my-long-jwt';
 const api = new CRApi(baseUri, apiToken);
 
 api.cards()
-  .then(function (cards) {
+  .then((cards) => {
     console.log(cards);
   })
-  .catch(function (err) {
+  .catch((err) => {
     console.log(err);
   })
 ```
