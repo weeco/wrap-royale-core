@@ -2,14 +2,19 @@ import * as chai from 'chai';
 import * as dotenv from 'dotenv';
 import * as Joi from 'joi';
 import {} from 'mocha';
-import { CRApi, IApiCards } from '../index';
-import { IApiClanLeaderboard, IApiClanRanking } from '../interfaces/clan-leaderboard';
-import { IApiClanProfile } from '../interfaces/clan-profile';
-import { IApiLocation, IApiLocations } from '../interfaces/locations';
-import { IApiPlayersBattleLogs } from '../interfaces/player-battle-logs';
-import { IApiPlayerLeaderboard, IApiPlayerRanking } from '../interfaces/player-leaderboard';
-import { IApiPlayerProfile } from '../interfaces/player-profile';
-import { IApiPlayersUpcomingChests, IApiUpcomingChest } from '../interfaces/player-upcoming-chests';
+import { CRApi,
+  IApiCards,
+  IApiClanLeaderboard,
+  IApiClanProfile,
+  IApiClanRanking,
+  IApiLocation,
+  IApiLocations,
+  IApiPlayerLeaderboard,
+  IApiPlayerProfile,
+  IApiPlayerRanking,
+  IApiPlayersBattleLogs,
+  IApiPlayersUpcomingChests, IApiUpcomingChest
+} from '../index';
 
 /**
  * Test main lib functionality
