@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "declaration": true,
+      "target": "es2017",
+      "lib": [
+        "es2017"
+      ],
+      "noImplicitAny": true,
+      "moduleResolution": "node",
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "sourceMap": true,
+      "strict": true,
+      "outDir": "dist",
+      "typeRoots": [
+        "node_modules/@types",
+        "src/typings/*"
+      ]
+    },
+    "exclude": [
+      "dist",
+      "node_modules"
+    ]
+  }
+  
