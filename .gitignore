@@ -65,4 +65,4 @@ typings/
 !.vscode/extensions.json
 
 # Typescript transpiled output
-dist
+lib

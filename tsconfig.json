@@ -12,7 +12,7 @@
       "noUnusedParameters": true,
       "sourceMap": true,
       "strict": true,
-      "outDir": "dist",
+      "outDir": "lib",
       "typeRoots": [
         "node_modules/@types",
         "src/typings/*"
@@ -23,4 +23,3 @@
       "node_modules"
     ]
   }
-  
