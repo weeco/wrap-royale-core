@@ -13,6 +13,13 @@
     "type": "git",
     "url": "git+https://github.com/weeco/wrap-royale-core.git"
   },
+  "keywords": [
+    "clash",
+    "royale",
+    "api",
+    "wrapper",
+    "typescript"
+  ],
   "author": "Weeco <weeco91@gmail.com>",
   "license": "MIT",
   "bugs": {
