@@ -1,0 +1,11 @@
+src
+dist/test
+tslint.json
+tsconfig.json
+.editorconfig
+.env
+.env.example
+.gitattributes
+.travis.yml
+.vscode/
+package-lock.json
