@@ -1,6 +1,9 @@
 # Wrap Royale Core
 
+
 [![Discord Server](https://discordapp.com/api/guilds/372163650993127424/embed.png)](https://discord.gg/YBAE3JX)
+[![npm version](https://badge.fury.io/js/wrap-royale-core.svg)](https://badge.fury.io/js/wrap-royale-core)
+[![Travis](https://img.shields.io/travis/weeco/wrap-royale-core.svg)](https://travis-ci.org/weeco/wrap-royale-core)
 [![GitHub license](https://img.shields.io/github/license/weeco/wrap-royale-core.svg)](https://github.com/weeco/wrap-royale-core/blob/master/LICENSE)
 
 Wrap royale core is a promise based, minimalist wrapper for the official Clash Royale REST API. It covers all endpoints and parameters, but it barely offers any utility methods. If you are looking for a more feature rich library to interact with the Clash Royale API, take a look at [wrap-royale](https://github.com/weeco/wrap-royale) which utilizes this library.
