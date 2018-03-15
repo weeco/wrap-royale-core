@@ -3,7 +3,7 @@ import { IApiArena, IApiClan, IApiIconUrls } from './common';
 /**
  * Interfaces for API player battle logs.
  */
-export interface IApiPlayersBattleLogs {
+export interface IApiPlayersBattleLog {
   // tslint:disable-next-line:no-reserved-keywords
   type: string;
   battleTime: string;

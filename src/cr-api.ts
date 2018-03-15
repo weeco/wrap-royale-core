@@ -77,7 +77,7 @@ export class CRApi {
    * Returns information about a specific location.
    * @param locationId Identifier of the location to retrieve.
    */
-  public async locationById(locationId: string): Promise<IApiLocation> {
+  public async locationById(locationId: number): Promise<IApiLocation> {
     const route: string = `locations/${locationId}`;
 
     return <IApiLocation>await this.request(route);
@@ -92,7 +92,8 @@ export class CRApi {
    * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the
    * 'paging' property. Note that only after or before can be specified for a request, not both.
    */
-  public async clanLeaderboard(locationId: string, limit?: number, after?: string, before?: string): Promise<IApiClanLeaderboard> {
+  public async clanLeaderboard(locationId: number | 'global', limit?: number, after?: string,
+                               before?: string): Promise<IApiClanLeaderboard> {
     const route: string = `locations/${locationId}/rankings/clans`;
     const params: {} = { limit, after, before };
 
@@ -141,11 +142,11 @@ export class CRApi {
    * Get information about a player's battle logs.
    * @param playerTag Tag of the player whose battle logs to retrieve.
    */
-  public async playersBattleLogs(playerTag: string): Promise<IApiPlayersBattleLogs[]> {
+  public async playersBattleLogs(playerTag: string): Promise<IApiPlayersBattleLog[]> {
     const normalizedTag: string = `#${this.normalizeHashtag(playerTag)}`;
     const route: string = `players/${encodeURIComponent(normalizedTag)}/battlelog`;
 
-    return <IApiPlayersBattleLogs[]>await this.request(route);
+    return <IApiPlayersBattleLog[]>await this.request(route);
   }
 
   /**

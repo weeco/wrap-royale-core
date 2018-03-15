@@ -12,7 +12,7 @@ import { CRApi,
   IApiPlayerLeaderboard,
   IApiPlayerProfile,
   IApiPlayerRanking,
-  IApiPlayersBattleLogs,
+  IApiPlayersBattleLog,
   IApiPlayersUpcomingChests, IApiUpcomingChest
 } from '../index';
 
@@ -80,7 +80,7 @@ describe('API Requests', () => {
 
   describe('Location', () => {
     it('Should return Germany as location', async () => {
-      const germany: IApiLocation = await api.locationById('57000094');
+      const germany: IApiLocation = await api.locationById(57000094);
       expect(germany.countryCode).to.be.equal('DE');
       expect(germany.isCountry).to.equal(true, 'IsCountry is not true for Germany');
       expect(germany.name).to.be.equal('Germany');
@@ -89,7 +89,7 @@ describe('API Requests', () => {
 
   describe('Leaderboards', () => {
     it('Should return Germany\'s clan leaderboard with 200 clans', async () => {
-      const germanTopClans: IApiClanLeaderboard = await api.clanLeaderboard('57000094');
+      const germanTopClans: IApiClanLeaderboard = await api.clanLeaderboard(57000094);
       expect(germanTopClans.items.length).to.be.equal(200);
       germanTopClans.items.forEach((clan: IApiClanRanking) => {
         expect(clan.clanScore).to.be.a('number');
@@ -127,7 +127,7 @@ describe('API Requests', () => {
 
   describe('Player\'s battle logs', () => {
     it('should return a player\'s battle logs', async () => {
-      const battleLogs: IApiPlayersBattleLogs[] = await api.playersBattleLogs('22UYP9Y0');
+      const battleLogs: IApiPlayersBattleLog[] = await api.playersBattleLogs('22UYP9Y0');
       expect(battleLogs[0].gameMode.id).to.be.a('number');
     });
   });
