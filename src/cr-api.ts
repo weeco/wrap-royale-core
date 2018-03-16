@@ -109,7 +109,8 @@ export class CRApi {
    * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the
    * 'paging' property. Note that only after or before can be specified for a request, not both.
    */
-  public async playerLeaderboard(locationId: string, limit?: number, after?: string, before?: string): Promise<IApiPlayerLeaderboard> {
+  public async playerLeaderboard(locationId: number | 'global', limit?: number, after?: string,
+                                 before?: string): Promise<IApiPlayerLeaderboard> {
     const route: string = `locations/${locationId}/rankings/players`;
     const params: {} = { limit, after, before };
 
