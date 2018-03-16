@@ -1,6 +1,6 @@
 {
   "name": "wrap-royale-core",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A promise based, minimalist wrapper for the official Clash Royale API written in TypeScript.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
