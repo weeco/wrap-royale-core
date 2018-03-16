@@ -28,7 +28,7 @@ export interface IApiPlayerProfile {
   achievements: IApiAchievements[];
   cards: IApiPlayerProfileCard[];
   currentDeck?: IApiPlayerProfileCard[];
-  currentFavouriteCard: IApiCard;
+  currentFavouriteCard?: IApiCard;
 }
 
 export interface IApiLeagueStatistics {
