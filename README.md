@@ -1,5 +1,7 @@
 # Wrap Royale Core
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/weeco/wrap-royale-core.svg)](https://greenkeeper.io/)
+
 
 [![Discord Server](https://discordapp.com/api/guilds/372163650993127424/embed.png)](https://discord.gg/YBAE3JX)
 [![npm version](https://badge.fury.io/js/wrap-royale-core.svg)](https://badge.fury.io/js/wrap-royale-core)
