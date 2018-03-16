@@ -4,7 +4,7 @@ import { IApiCards } from './interfaces/cards';
 import { IApiClanLeaderboard } from './interfaces/clan-leaderboard';
 import { IApiClanProfile } from './interfaces/clan-profile';
 import { IApiLocation, IApiLocations } from './interfaces/locations';
-import { IApiPlayersBattleLogs } from './interfaces/player-battle-logs';
+import { IApiPlayersBattleLog } from './interfaces/player-battle-logs';
 import { IApiPlayerLeaderboard } from './interfaces/player-leaderboard';
 import { IApiPlayerProfile } from './interfaces/player-profile';
 import { IApiPlayersUpcomingChests } from './interfaces/player-upcoming-chests';
