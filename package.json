@@ -38,7 +38,7 @@
     "@types/dotenv": "^4.0.2",
     "@types/joi": "^13.0.5",
     "@types/mocha": "^2.2.48",
-    "ts-node": "^5.0.1",
+    "ts-node": "^6.0.0",
     "tslint": "^5.9.1",
     "tslint-microsoft-contrib": "^5.0.3",
     "typescript": "^2.7.2"
