@@ -2,7 +2,8 @@ import * as chai from 'chai';
 import * as dotenv from 'dotenv';
 import * as Joi from 'joi';
 import {} from 'mocha';
-import { CRApi,
+import {
+  CRApi,
   IApiCards,
   IApiClanLeaderboard,
   IApiClanProfile,
@@ -13,8 +14,10 @@ import { CRApi,
   IApiPlayerProfile,
   IApiPlayerRanking,
   IApiPlayersBattleLog,
-  IApiPlayersUpcomingChests, IApiUpcomingChest
+  IApiPlayersUpcomingChests,
+  IApiUpcomingChest
 } from '../index';
+import { IApiClanWarLeaderboard, IApiClanWarRanking } from '../interfaces/clan-wars';
 
 /**
  * Test main lib functionality
@@ -28,11 +31,15 @@ describe('API Requests', () => {
   // Assign Token and Baseurl as variable from .env file
   before(() => {
     const envVarsSchema: Joi.ObjectSchema = Joi.object({
-      CR_API_TEST_TOKEN: Joi.string().required()
+      CR_API_TEST_TOKEN: Joi.string()
+        .required()
         .description('API Token is required for testing'),
-      CR_API_TEST_BASEURL: Joi.string().required()
+      CR_API_TEST_BASEURL: Joi.string()
+        .required()
         .description('Base url is required for testing')
-    }).unknown().required();
+    })
+      .unknown()
+      .required();
     const { error, value: envVars } = Joi.validate(process.env, envVarsSchema);
     if (error !== null) {
       throw new Error(`Config validation error: ${error.message}`);
@@ -88,7 +95,7 @@ describe('API Requests', () => {
   });
 
   describe('Leaderboards', () => {
-    it('Should return Germany\'s clan leaderboard with 200 clans', async () => {
+    it("Should return Germany's clan leaderboard with 200 clans", async () => {
       const germanTopClans: IApiClanLeaderboard = await api.clanLeaderboard(57000094);
       expect(germanTopClans.items.length).to.be.equal(200);
       germanTopClans.items.forEach((clan: IApiClanRanking) => {
@@ -103,6 +110,14 @@ describe('API Requests', () => {
         expect(player.trophies).to.be.a('number');
       });
     });
+
+    it('Should return the global clan wars leaderboard with 200 players', async () => {
+      const globalTopClanWarClans: IApiClanWarLeaderboard = await api.clanWarLeaderboard('global');
+      expect(globalTopClanWarClans.items.length).to.be.equal(200);
+      globalTopClanWarClans.items.forEach((clan: IApiClanWarRanking) => {
+        expect(clan.clanScore).to.be.a('number');
+      });
+    });
   });
 
   describe('Player profile', () => {
@@ -114,8 +129,8 @@ describe('API Requests', () => {
     });
   });
 
-  describe('Player\'s upcoming chests', () => {
-    it('should return a player\'s upcoming chests', async () => {
+  describe("Player's upcoming chests", () => {
+    it("should return a player's upcoming chests", async () => {
       const upcomingChests: IApiPlayersUpcomingChests = await api.playersUpcomingChests('2PPP');
       expect(upcomingChests.items.length).to.be.gte(5);
       upcomingChests.items.forEach((chest: IApiUpcomingChest) => {
@@ -125,8 +140,8 @@ describe('API Requests', () => {
     });
   });
 
-  describe('Player\'s battle logs', () => {
-    it('should return a player\'s battle logs', async () => {
+  describe("Player's battle logs", () => {
+    it("should return a player's battle logs", async () => {
       const battleLogs: IApiPlayersBattleLog[] = await api.playersBattleLogs('22UYP9Y0');
       expect(battleLogs[0].gameMode.id).to.be.a('number');
     });

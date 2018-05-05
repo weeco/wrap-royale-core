@@ -3,6 +3,7 @@ import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { IApiCards } from './interfaces/cards';
 import { IApiClanLeaderboard } from './interfaces/clan-leaderboard';
 import { IApiClanProfile } from './interfaces/clan-profile';
+import { IApiClanWarLeaderboard } from './interfaces/clan-wars';
 import { IApiLocation, IApiLocations } from './interfaces/locations';
 import { IApiPlayersBattleLog } from './interfaces/player-battle-logs';
 import { IApiPlayerLeaderboard } from './interfaces/player-leaderboard';
@@ -32,7 +33,7 @@ export class CRApi {
     const defaultOptions: IApiOptions = {
       timeoutMS: 6000
     };
-    const completeOptions: IApiOptions = {...defaultOptions, ...options};
+    const completeOptions: IApiOptions = { ...defaultOptions, ...options };
     this.options = completeOptions;
 
     // Initialize default request options
@@ -70,7 +71,7 @@ export class CRApi {
     const route: string = 'locations';
     const params: {} = { limit, after, before };
 
-    return <IApiLocations>await this.request(route, params);
+    return this.request<IApiLocations>(route, params);
   }
 
   /**
@@ -80,7 +81,7 @@ export class CRApi {
   public async locationById(locationId: number): Promise<IApiLocation> {
     const route: string = `locations/${locationId}`;
 
-    return <IApiLocation>await this.request(route);
+    return this.request<IApiLocation>(route);
   }
 
   /**
@@ -92,12 +93,37 @@ export class CRApi {
    * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the
    * 'paging' property. Note that only after or before can be specified for a request, not both.
    */
-  public async clanLeaderboard(locationId: number | 'global', limit?: number, after?: string,
-                               before?: string): Promise<IApiClanLeaderboard> {
+  public async clanWarLeaderboard(
+    locationId: number | 'global',
+    limit?: number,
+    after?: string,
+    before?: string
+  ): Promise<IApiClanLeaderboard> {
+    const route: string = `locations/${locationId}/rankings/clanwars`;
+    const params: {} = { limit, after, before };
+
+    return this.request<IApiClanWarLeaderboard>(route, params);
+  }
+
+  /**
+   * Get clan rankings for a specific location.
+   * @param locationId Identifier of the location to retrieve rankings for. Use 'global' for global leaderboards.
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. After marker can be found from the response, inside the
+   * 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the
+   * 'paging' property. Note that only after or before can be specified for a request, not both.
+   */
+  public async clanLeaderboard(
+    locationId: number | 'global',
+    limit?: number,
+    after?: string,
+    before?: string
+  ): Promise<IApiClanLeaderboard> {
     const route: string = `locations/${locationId}/rankings/clans`;
     const params: {} = { limit, after, before };
 
-    return <IApiClanLeaderboard>await this.request(route, params);
+    return this.request<IApiClanLeaderboard>(route, params);
   }
 
   /**
@@ -109,12 +135,16 @@ export class CRApi {
    * @param before Return only items that occur before this marker. Before marker can be found from the response, inside the
    * 'paging' property. Note that only after or before can be specified for a request, not both.
    */
-  public async playerLeaderboard(locationId: number | 'global', limit?: number, after?: string,
-                                 before?: string): Promise<IApiPlayerLeaderboard> {
+  public async playerLeaderboard(
+    locationId: number | 'global',
+    limit?: number,
+    after?: string,
+    before?: string
+  ): Promise<IApiPlayerLeaderboard> {
     const route: string = `locations/${locationId}/rankings/players`;
     const params: {} = { limit, after, before };
 
-    return <IApiPlayerLeaderboard>await this.request(route, params);
+    return this.request<IApiPlayerLeaderboard>(route, params);
   }
 
   /**
@@ -125,7 +155,7 @@ export class CRApi {
     const normalizedTag: string = `#${this.normalizeHashtag(playerTag)}`;
     const route: string = `players/${encodeURIComponent(normalizedTag)}`;
 
-    return <IApiPlayerProfile>await this.request(route);
+    return this.request<IApiPlayerProfile>(route);
   }
 
   /**
@@ -136,7 +166,7 @@ export class CRApi {
     const normalizedTag: string = `#${this.normalizeHashtag(playerTag)}`;
     const route: string = `players/${encodeURIComponent(normalizedTag)}/upcomingchests`;
 
-    return <IApiPlayersUpcomingChests>await this.request(route);
+    return this.request<IApiPlayersUpcomingChests>(route);
   }
 
   /**
@@ -147,7 +177,7 @@ export class CRApi {
     const normalizedTag: string = `#${this.normalizeHashtag(playerTag)}`;
     const route: string = `players/${encodeURIComponent(normalizedTag)}/battlelog`;
 
-    return <IApiPlayersBattleLog[]>await this.request(route);
+    return this.request<IApiPlayersBattleLog[]>(route);
   }
 
   /**
@@ -158,7 +188,7 @@ export class CRApi {
     const normalizedTag: string = `#${this.normalizeHashtag(clanTag)}`;
     const route: string = `clans/${encodeURIComponent(normalizedTag)}`;
 
-    return <IApiClanProfile>await this.request(route);
+    return this.request<IApiClanProfile>(route);
   }
 
   /**
@@ -167,10 +197,10 @@ export class CRApi {
    * @param uri URI to request data from.
    * @param params Optional query string parameters
    */
-  private async request(uri: string, params?: {}): Promise<{}> {
+  private async request<T>(uri: string, params?: {}): Promise<T> {
     const response: AxiosResponse<{}> = await this.apiRequest(uri, { params });
 
-    return response.data;
+    return <T>response.data;
   }
 
   /**
@@ -178,9 +208,11 @@ export class CRApi {
    * @param hashtag Player- or clantag
    */
   private normalizeHashtag(hashtag: string): string {
-   return hashtag.trim().toUpperCase()
-     .replace('#', '')
-     .replace(/O/g, '0'); // replace capital O with zero
+    return hashtag
+      .trim()
+      .toUpperCase()
+      .replace('#', '')
+      .replace(/O/g, '0'); // replace capital O with zero
   }
 }
 
