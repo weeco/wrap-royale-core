@@ -6,7 +6,8 @@
     ],
     "jsRules": {},
     "rules": {
-      "no-relative-imports": false
+      "no-relative-imports": false,
+      "quotemark": [true, "single", "avoid-escape"]
     },
     "rulesDirectory": []
 }
