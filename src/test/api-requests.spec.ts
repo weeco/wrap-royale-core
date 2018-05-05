@@ -8,6 +8,8 @@ import {
   IApiClanLeaderboard,
   IApiClanProfile,
   IApiClanRanking,
+  IApiClanWarLeaderboard,
+  IApiClanWarRanking,
   IApiLocation,
   IApiLocations,
   IApiPlayerLeaderboard,
@@ -17,7 +19,6 @@ import {
   IApiPlayersUpcomingChests,
   IApiUpcomingChest
 } from '../index';
-import { IApiClanWarLeaderboard, IApiClanWarRanking } from '../interfaces/clan-wars';
 
 /**
  * Test main lib functionality
