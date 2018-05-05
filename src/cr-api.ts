@@ -98,7 +98,7 @@ export class CRApi {
     limit?: number,
     after?: string,
     before?: string
-  ): Promise<IApiClanLeaderboard> {
+  ): Promise<IApiClanWarLeaderboard> {
     const route: string = `locations/${locationId}/rankings/clanwars`;
     const params: {} = { limit, after, before };
 
