@@ -99,6 +99,7 @@ Below you'll find a summary of all available methods. For more details about the
 | `cards()`                                                                                | Promise\<IApiCards>               |
 | `locations(limit?: number, after?: string, before?: string)`                             | Promise\<IApiLocations>           |
 | `locationById(locationId: number)`                                                       | Promise\<IApiLocation>            |
+| `clanWarLeaderboard(locationId: string, limit?: number, after?: string, before?: string)`| Promise\<IApiClanWarLeaderboard>  |
 | `playerLeaderboard(locationId: string, limit?: number, after?: string, before?: string)` | Promise\<IApiPlayerLeaderboard>   |
 | `clanLeaderboard(locationId: string, limit?: number, after?: string, before?: string)`   | Promise\<IApiClanLeaderboard>     |
 | `playerProfile(playerTag: string)`                                                       | Promise\<IApiPlayerProfile>       |
