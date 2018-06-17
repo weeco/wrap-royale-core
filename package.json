@@ -9,7 +9,7 @@
     "clean": "rimraf lib",
     "lint": "tslint --project tsconfig.json --format stylish src/**/*.ts",
     "format": "prettier --write \"**/*.ts\"",
-    "test": "mocha -r ts-node/register src/**/*.spec.ts",
+    "test": "mocha -r ts-node/register test/**/*.spec.ts",
     "prepublishOnly": "npm run clean && npm run build"
   },
   "repository": {

@@ -17,8 +17,10 @@ import {
   IApiPlayerRanking,
   IApiPlayersBattleLog,
   IApiPlayersUpcomingChests,
-  IApiUpcomingChest
-} from '../index';
+  IApiUpcomingChest,
+  IClanWarLog,
+  ICurrentClanWar
+} from '../src/index';
 
 /**
  * Test main lib functionality
@@ -152,6 +154,20 @@ describe('API Requests', () => {
     it('should return the Nova eSports clan profile', async () => {
       const clanProfile: IApiClanProfile = await api.clanProfile('LCVUYCR');
       expect(clanProfile.name).to.be.equal('Nova eSports');
+    });
+  });
+
+  describe('Clan war', () => {
+    it('should return the current clan war for crucible wrath', async () => {
+      const currentClanWar: ICurrentClanWar = await api.currentClanWarInfo('2LRU2J');
+      expect(currentClanWar.clan.name).to.be.equal('Crucible Wrath');
+      expect(currentClanWar.participants.length).to.be.a('number');
+    });
+
+    it('should return the clan war history for crucible wrath', async () => {
+      const clanWarLog: IClanWarLog = await api.clanWarLog('2LRU2J');
+      expect(clanWarLog.items).to.be.an('array');
+      expect(clanWarLog.items[0].participants.length).to.be.a('number');
     });
   });
 });
