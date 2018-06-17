@@ -106,3 +106,5 @@ Below you'll find a summary of all available methods. For more details about the
 | `playersUpcomingChests(playerTag: string)`                                               | Promise\<IApiUpcomingChests>      |
 | `playersBattleLogs(playerTag: string)`                                                   | Promise\<IApiPlayersBattleLogs[]> |
 | `clanProfile(clanTag: string)`                                                           | Promise\<IApiClanProfile>         |
+| `currentClanWarInfo(clanTag: string)`                                                    | Promise\<ICurrentClanWar>         |
+| `clanWarLog(clanTag: string, locationId: string, limit?: number, after?: string, before?: string)`| Promise\<IClanWarLog>    |
