@@ -3,7 +3,9 @@ import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { IApiCards } from './interfaces/cards';
 import { IApiClanLeaderboard } from './interfaces/clan-leaderboard';
 import { IApiClanProfile } from './interfaces/clan-profile';
-import { IApiClanWarLeaderboard } from './interfaces/clan-wars';
+import { IApiClanWarLeaderboard } from './interfaces/clan-war/clan-war';
+import { IClanWarLog } from './interfaces/clan-war/clan-war-log';
+import { ICurrentClanWar } from './interfaces/clan-war/current-clan-war';
 import { IApiLocation, IApiLocations } from './interfaces/locations';
 import { IApiPlayersBattleLog } from './interfaces/player-battle-logs';
 import { IApiPlayerLeaderboard } from './interfaces/player-leaderboard';
@@ -189,6 +191,25 @@ export class CRApi {
     const route: string = `clans/${encodeURIComponent(normalizedTag)}`;
 
     return this.request<IApiClanProfile>(route);
+  }
+
+  /**
+   * Get information about the current clan war of a clan.
+   * @param clanTag Tag of the clan's current clan war to retrieve.
+   */
+  public async currentClanWarInfo(clanTag: string): Promise<ICurrentClanWar> {
+    const normalizedTag: string = `#${this.normalizeHashtag(clanTag)}`;
+    const route: string = `clans/${encodeURIComponent(normalizedTag)}/currentwar`;
+
+    return this.request<ICurrentClanWar>(route);
+  }
+
+  public async clanWarLog(clanTag: string, limit?: number, after?: string, before?: string): Promise<IClanWarLog> {
+    const normalizedTag: string = `#${this.normalizeHashtag(clanTag)}`;
+    const params: {} = { limit, after, before };
+    const route: string = `clans/${encodeURIComponent(normalizedTag)}/warlog`;
+
+    return this.request<IClanWarLog>(route, params);
   }
 
   /**

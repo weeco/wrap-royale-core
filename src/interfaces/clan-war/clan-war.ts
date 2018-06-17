@@ -1,5 +1,5 @@
-import { IApiPaging } from './common';
-import { IApiLocation } from './locations';
+import { IApiPaging } from '../common';
+import { IApiLocation } from '../locations';
 
 /**
  * Clan wars endpoint
@@ -14,6 +14,7 @@ export interface IApiClanWarRanking {
   clanScore: number;
   members: number;
 }
+
 export interface IApiClanWarLeaderboard {
   items: IApiClanWarRanking[];
   paging: IApiPaging;
