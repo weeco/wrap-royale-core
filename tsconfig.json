@@ -1,25 +1,26 @@
 {
-    "compilerOptions": {
-      "module": "commonjs",
-      "declaration": true,
-      "target": "es2017",
-      "lib": [
-        "es2017"
-      ],
-      "noImplicitAny": true,
-      "moduleResolution": "node",
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "sourceMap": true,
-      "strict": true,
-      "outDir": "lib",
-      "typeRoots": [
-        "node_modules/@types",
-        "src/typings/*"
-      ]
-    },
-    "exclude": [
-      "lib",
-      "node_modules"
-    ]
-  }
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "declaration": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "lib",
+    "typeRoots": [
+      "node_modules/@types",
+      "src/typings"
+    ],
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+  ]
+}
