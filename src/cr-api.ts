@@ -3,6 +3,7 @@ import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { IApiCards } from './interfaces/cards';
 import { IApiClanLeaderboard } from './interfaces/clan-leaderboard';
 import { IApiClanProfile } from './interfaces/clan-profile';
+import { IClanSearchResponse } from './interfaces/clan-search-response';
 import { IApiClanWarLeaderboard } from './interfaces/clan-war/clan-war';
 import { IClanWarLog } from './interfaces/clan-war/clan-war-log';
 import { ICurrentClanWar } from './interfaces/clan-war/current-clan-war';
@@ -11,6 +12,8 @@ import { IApiPlayersBattleLog } from './interfaces/player-battle-logs';
 import { IApiPlayerLeaderboard } from './interfaces/player-leaderboard';
 import { IApiPlayerProfile } from './interfaces/player-profile';
 import { IApiPlayersUpcomingChests } from './interfaces/player-upcoming-chests';
+import { ITournaments, ITournament } from './interfaces/tournaments';
+import { IVerifyToken } from './interfaces/verify-token';
 
 /**
  * Clash Royale API Wrapper class
@@ -50,6 +53,29 @@ export class CRApi {
       },
       responseType: 'json'
     });
+  }
+
+  /**
+   * Search all clans by name and/or filtering the results using various criteria. At least one filtering criteria
+   * must be defined and if name is used as part of search, it is required to be at least three characters long.
+   *
+   * It is not possible to specify ordering for results so clients should not rely on any specific ordering as
+   * that may change in the future releases of the API.
+   */
+  public async clans(
+    name?: string,
+    locationId?: number,
+    minMembers?: number,
+    maxMembers?: number,
+    minScore?: number,
+    limit?: number,
+    after?: number,
+    before?: number
+  ): Promise<IClanSearchResponse> {
+    const route: string = 'clans';
+    const params: {} = { name, locationId, minMembers, maxMembers, minScore, limit, after, before };
+
+    return this.request<IClanSearchResponse>(route, params);
   }
 
   /**
@@ -194,8 +220,8 @@ export class CRApi {
   }
 
   /**
-   * Get information about the current clan war of a clan.
-   * @param clanTag Tag of the clan's current clan war to retrieve.
+   * Retrieve information about clan's current clan war
+   * @param clanTag Tag of the clan whose war log to retrieve.
    */
   public async currentClanWarInfo(clanTag: string): Promise<ICurrentClanWar> {
     const normalizedTag: string = `#${this.normalizeHashtag(clanTag)}`;
@@ -204,6 +230,15 @@ export class CRApi {
     return this.request<ICurrentClanWar>(route);
   }
 
+  /**
+   * Retrieve clan's clan war log
+   * @param clanTag Tag of the clan whose war log to retrieve.
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. After marker can be found from the response,
+   * inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response,
+   * inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   */
   public async clanWarLog(clanTag: string, limit?: number, after?: string, before?: string): Promise<IClanWarLog> {
     const normalizedTag: string = `#${this.normalizeHashtag(clanTag)}`;
     const params: {} = { limit, after, before };
@@ -213,13 +248,56 @@ export class CRApi {
   }
 
   /**
+   * Verifies a player token and returns whether or not the token was associated with the given player.
+   *
+   * This API call can be used by a player to prove that they own a particular game account as the token
+   * can only be retrieved inside the game from settings view.
+   * @param playerTag
+   * @param token
+   */
+  public async verifyPlayerToken(playerTag: string, token: string): Promise<IVerifyToken> {
+    const normalizedTag: string = `#${this.normalizeHashtag(playerTag)}`;
+    const route: string = `players/${encodeURIComponent(normalizedTag)}/verifytoken`;
+    const data: {} = { token };
+
+    return this.request<IVerifyToken>(route, {}, data, 'POST');
+  }
+
+  /**
+   *
+   * @param name Search tournaments by name
+   * @param limit Limit the number of items returned in the response.
+   * @param after Return only items that occur after this marker. After marker can be found from the
+   * response, inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   * @param before Return only items that occur before this marker. Before marker can be found from the response,
+   * inside the 'paging' property. Note that only after or before can be specified for a request, not both.
+   */
+  public async tournaments(name?: string, limit?: number, after?: number, before?: number): Promise<ITournaments> {
+    const route: string = 'tournaments';
+    const params: {} = { name, limit, after, before };
+
+    return this.request<ITournaments>(route, params);
+  }
+
+  /**
+   * Get information about a single tournament by a tournament tag.
+   * @param tournamentTag Tag of the tournament to retrieve.
+   */
+  public async tournamentByTag(tournamentTag: string): Promise<ITournament> {
+    const normalizedTag: string = `#${this.normalizeHashtag(tournamentTag)}`;
+    const route: string = `tournaments/${encodeURIComponent(normalizedTag)}`;
+
+    return this.request<ITournament>(route);
+  }
+
+  /**
    * This can be used as "request middleware".
    * For example one can modify requests or implement special response handling before returning the data.
    * @param uri URI to request data from.
    * @param params Optional query string parameters
    */
-  private async request<T>(uri: string, params?: {}): Promise<T> {
-    const response: AxiosResponse<{}> = await this.apiRequest(uri, { params });
+  private async request<T>(uri: string, params?: {}, data?: {}, method: string = 'GET'): Promise<T> {
+    const response: AxiosResponse<{}> = await this.apiRequest(uri, { params, data, method });
 
     return <T>response.data;
   }

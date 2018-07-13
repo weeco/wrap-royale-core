@@ -18,8 +18,12 @@ import {
   IApiPlayersBattleLog,
   IApiPlayersUpcomingChests,
   IApiUpcomingChest,
+  IClanSearchResponse,
   IClanWarLog,
-  ICurrentClanWar
+  ICurrentClanWar,
+  ITournament,
+  ITournaments,
+  IVerifyToken
 } from '../src/index';
 
 /**
@@ -123,12 +127,34 @@ describe('API Requests', () => {
     });
   });
 
-  describe('Player profile', () => {
+  describe('Players', () => {
     it('should return a player profile', async () => {
       const profile: IApiPlayerProfile = await api.playerProfile('2PPP');
       expect(profile.name).to.be.a('string');
       expect(profile.cards[0].level).to.be.a('number');
       expect(profile.expLevel).to.be.a('number');
+    });
+
+    it("should return a player's battle logs", async () => {
+      const battleLogs: IApiPlayersBattleLog[] = await api.playersBattleLogs('22UYP9Y0');
+      expect(battleLogs[0].gameMode.id).to.be.a('number');
+    });
+
+    it('should verify a player token', async () => {
+      const response: IVerifyToken = await api.verifyPlayerToken('8PLQOG88G', '2jyax8cz');
+      expect(response.status).to.be.a('string');
+    });
+  });
+
+  describe('Tournaments', () => {
+    it('should find tournaments by name', async () => {
+      const tournaments: ITournaments = await api.tournaments('nova');
+      expect(tournaments.items.length).to.be.gte(0);
+    });
+
+    it('should find tournament by tag', async () => {
+      const tournament: ITournament = await api.tournamentByTag('2PP');
+      expect(tournament.status).to.be.equal('ended');
     });
   });
 
@@ -143,14 +169,13 @@ describe('API Requests', () => {
     });
   });
 
-  describe("Player's battle logs", () => {
-    it("should return a player's battle logs", async () => {
-      const battleLogs: IApiPlayersBattleLog[] = await api.playersBattleLogs('22UYP9Y0');
-      expect(battleLogs[0].gameMode.id).to.be.a('number');
-    });
-  });
-
   describe('Clan profile', () => {
+    it('should find clans by parameter search', async () => {
+      const clanProfiles: IClanSearchResponse = await api.clans('nova');
+      expect(clanProfiles.items.length).to.be.greaterThan(0);
+      expect(clanProfiles.items[0].name).to.be.a('string');
+    });
+
     it('should return the Nova eSports clan profile', async () => {
       const clanProfile: IApiClanProfile = await api.clanProfile('LCVUYCR');
       expect(clanProfile.name).to.be.equal('Nova eSports');
