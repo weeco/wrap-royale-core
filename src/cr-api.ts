@@ -12,7 +12,7 @@ import { IApiPlayersBattleLog } from './interfaces/player-battle-logs';
 import { IApiPlayerLeaderboard } from './interfaces/player-leaderboard';
 import { IApiPlayerProfile } from './interfaces/player-profile';
 import { IApiPlayersUpcomingChests } from './interfaces/player-upcoming-chests';
-import { ITournaments, ITournament } from './interfaces/tournaments';
+import { ITournament, ITournaments } from './interfaces/tournaments';
 import { IVerifyToken } from './interfaces/verify-token';
 
 /**
