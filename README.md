@@ -8,6 +8,8 @@
 
 Wrap royale core is a promise based, minimalist wrapper for the official Clash Royale REST API. It covers all endpoints and parameters, but it barely offers any utility methods. If you are looking for a more feature rich library to interact with the Clash Royale API, take a look at [wrap-royale](https://github.com/weeco/wrap-royale) which utilizes this library.
 
+Official Clash Royale API documentation: https://developer.clashroyale.com
+
 ### Features
 
 - [x] Lightweight, promise based wrapper functions for API requests.
@@ -21,7 +23,7 @@ Wrap royale core is a promise based, minimalist wrapper for the official Clash R
 ## Getting started
 ### Prerequisites
 - [Node.js 8.0+](http://nodejs.org)
-- Token for the official Clash Royale API (currently closed beta)
+- Token for the official Clash Royale API (register here and create a token for your IP address https://developer.clashroyale.com)
 
 ### Installation
 `$ npm install --save wrap-royale-core`
