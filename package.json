@@ -44,7 +44,7 @@
     "@types/mocha": "^5.1.0",
     "ts-node": "^7.0.0",
     "tslint": "^5.9.1",
-    "tslint-microsoft-contrib": "^5.0.3",
+    "tslint-microsoft-contrib": "^6.1.0",
     "typescript": "^2.7.2"
   }
 }
